@@ -21,13 +21,13 @@ public class MyController {
     private CabService cabService;
 
     @GetMapping("/findCab/")
-    ResponseEntity<List<Driver>> getCab(@RequestBody PersonJourney personJourney){
+    ResponseEntity<Object> getCab(@RequestBody PersonJourney personJourney){
         List<Driver> drivers=cabService.findRide(personJourney.getName(),personJourney.getSource(),personJourney.getDestination());
         if(drivers.size()>0){
             return ResponseEntity.of(Optional.of(drivers));
         }
         else{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.ok().body("No Ride Found");
         }
     }
 }
